@@ -1,23 +1,35 @@
-Merge Intervals
-https://leetcode.com/problems/merge-intervals/
-public int[][] merge(int[][] intervals) {
-    if(intervals.length == 0) return intervals;
+Insert Interval
+https://leetcode.com/problems/insert-interval
+public int[][] insert(int[][] intervals, int[] newInterval) {
     ArrayList<int[]> list = new ArrayList<>(Arrays.asList(intervals));
-    list.sort((x, y) -> Integer.compare(x[0], y[0]));
+    
+    int i = 1;
+    for (; i < list.size(); i++) {
+        if (list.get(i)[0] < newInterval[0]) continue;
+        break;
+    }
+    list.add(i-1, newInterval);
+    list = merge(list);
+    intervals = new int[list.size()][2];
+    return list.toArray(intervals);
+}
 
-    for (int i = 1; i < list.size(); i++){
-        int[] last = list.get(i-1);
-        int[] cur = list.get(i);
-        
+public ArrayList<int[]> merge(ArrayList<int[]> intervals) {
+
+    intervals.sort((x, y) -> Integer.compare(x[0], y[0]));
+
+    for (int i = 1; i < intervals.size(); i++){
+        int[] last = intervals.get(i-1);
+        int[] cur = intervals.get(i);
+
         if (!isOverlapping(last, cur)) continue;
 
-        list.set(i-1, new int[]{Integer.min(last[0], cur[0]), Integer.max(last[1], cur[1])});
-        list.remove(i);
+        intervals.set(i-1, new int[]{Integer.min(last[0], cur[0]), Integer.max(last[1], cur[1])});
+        intervals.remove(i);
         i--;
     }
 
-    intervals = new int[list.size()][2];
-    return list.toArray(intervals);
+    return intervals;
 }
 
 public boolean isOverlapping(int[] firstInterval, int[] SecondInterval){
