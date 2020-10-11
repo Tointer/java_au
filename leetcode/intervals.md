@@ -1,0 +1,27 @@
+# intervals 
+
++ [Non Overlapping Intervals](#non-overlapping-intervals)
+<!---->
+
+## Non Overlapping Intervals
+
+https://leetcode.com/problems/non-overlapping-intervals
+
+```java
+public int eraseOverlapIntervals(int[][] intervals) {
+    if (intervals.length <= 1) return 0;
+
+    ArrayList<int[]> list = new ArrayList<>(Arrays.asList(intervals));
+    list.sort((x, y) -> Integer.compare(x[1], y[1]));
+
+    int[] prev = list.get(0);
+    int erased = 0;
+
+    for (int i = 1; i < list.size(); i++){
+        if (list.get(i)[0] < prev[1]) erased++;
+        else prev = list.get(i);
+    }
+
+    return erased;
+}
+```
