@@ -15,7 +15,7 @@ public class TaskInfo{
         for (int i = 0; i < solution.length; i++) {
             builder.append(solution[i]);
             if (i != solution.length - 1)
-                builder.append("\n");
+                builder.append(" \n");
         }
         return builder.toString();
     }
