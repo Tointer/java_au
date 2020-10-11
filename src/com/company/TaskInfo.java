@@ -8,14 +8,12 @@ public class TaskInfo{
         this.name = name;
         this.link = link;
         this.solution = solution;
-        System.out.println(name + "\n" + link + "\n" + GetSolutionAsString());
     }
 
     public String GetSolutionAsString(){
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < solution.length; i++) {
-            String s = solution[i];
-            builder.append(s.substring(4));
+            builder.append(solution[i]);
             if (i != solution.length - 1)
                 builder.append("\n");
         }

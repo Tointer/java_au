@@ -1,0 +1,37 @@
+# intervals 
+
++ [Merge Intervals](#merge-intervals/)
+<!---->
+
+## Merge Intervals
+
+https://leetcode.com/problems/merge-intervals/
+
+```java
+public int[][] merge(int[][] intervals) {
+    if(intervals.length == 0) return intervals;
+    ArrayList<int[]> list = new ArrayList<>(Arrays.asList(intervals));
+    list.sort((x, y) -> Integer.compare(x[0], y[0]));
+
+    for (int i = 1; i < list.size(); i++){
+        int[] last = list.get(i-1);
+        int[] cur = list.get(i);
+
+        if (!isOverlapping(last, cur)) continue;
+
+        list.set(i-1, new int[]{Integer.min(last[0], cur[0]), Integer.max(last[1], cur[1])});
+        list.remove(i);
+        i--;
+    }
+
+    intervals = new int[list.size()][2];
+    return list.toArray(intervals);
+}
+
+public boolean isOverlapping(int[] firstInterval, int[] SecondInterval){
+    if (firstInterval[0] > SecondInterval[0]) {
+        return firstInterval[0] <= SecondInterval[1];
+    }
+    else return SecondInterval[0] <= firstInterval[1];
+}
+```
