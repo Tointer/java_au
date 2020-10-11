@@ -13,7 +13,7 @@ import java.util.List;
 public class Generator {
 
     private static String sourceFileName = "source_leetcode_data.txt";
-    private static String markDownFileName = "string.md";
+    private static String markDownFileName =  "string.md";
     private static String commentSyntax = "<!---->";
 
     public static String[] ReadFromFile(String name) throws IOException {
